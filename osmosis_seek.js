@@ -64,6 +64,9 @@ function run() {
               let script = data.script;
               script = JSON.parse(script);
 
+              let jobIdTmpArr = script.url.split('/');
+              let jobId = jobIdTmpArr[jobIdTmpArr.length-1];
+
               let title = script.title;
               let url = script.url;
               let category = listObj.cat;
@@ -94,6 +97,7 @@ function run() {
               */
 
               let obj = {
+                jobId: jobId,
                 title: title,
                 url: url,
                 category: category,

@@ -3,6 +3,7 @@ var mongodb = require('./connect');
 var Schema = mongodb.mongoose.Schema;
 
 var JobSchema = new Schema({
+  jobId: String,
   title:  String,
   url: String,
   category: String,
