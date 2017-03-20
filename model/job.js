@@ -7,7 +7,10 @@ var JobSchema = new Schema({
   url: String,
   category: String,
   advertiser: String,
+
+  description: String,
   content: String,
+  employmentType: String,
   datePosted: { type: Date, default: Date.now },
 });
 

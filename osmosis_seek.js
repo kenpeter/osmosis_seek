@@ -7,19 +7,23 @@ const jobDAO = new JobDAO();
 const theListArr = [
   {
     list: 'https://www.seek.com.au/nodejs-jobs/in-All-Melbourne-VIC?page=',
-    num: 4
+    num: 4,
+    cat: 'nodejs_melbourne'
   },
   {
     list: 'https://www.seek.com.au/javascript-jobs/in-All-Melbourne-VIC?page=',
-    num: 10
+    num: 10,
+    cat: 'javascript_melbourne'
   },
   {
     list: 'https://www.seek.com.au/php-jobs/in-All-Melbourne-VIC?page=',
-    num: 10 // max 10
+    num: 10, // max 10
+    cat: 'php_melbourne'
   },
   {
     list: 'https://www.seek.com.au/IT-jobs/in-All-Melbourne-VIC?page=',
-    num: 10 // max 10
+    num: 10, // max 10
+    cat: 'it_melbourne'
   }
 ];
 
@@ -57,33 +61,59 @@ function run() {
               'script': 'script'
             })
             .data((data) => {
-              console.log();
-              console.log('-------- single data obj -------');
-
               let script = data.script;
               script = JSON.parse(script);
 
-              let datePosted = script.datePosted;
+              let title = script.title;
+              let url = script.url;
+              let category = listObj.cat;
+              let advertiser = script.hiringOrganization.name;
+
               let description = script.description;
+              let content = ''; // assume body text from actual ad
               let employmentType = script.employmentType;
-              let orgName = script.hiringOrganization.name;
-
               let addressLocal = script.jobLocation.address.addressLocality;
+
               let addressRegion = script.jobLocation.address.addressRegion;
-              let jobTitle = script.title;
-              let jobUrl = script.url;
+              let datePosted = Date(script.datePosted);
 
-              console.log(datePosted);
+              console.log();
+              console.log('--------' + title + ' -------');
+
+              /*
+              console.log(title);
+              console.log(url);
+              console.log(category);
+              console.log(advertiser);
+
               console.log(description);
+              console.log(content);
               console.log(employmentType);
-              console.log(orgName);
-
               console.log(addressLocal);
-              console.log(addressRegion);
-              console.log(jobTitle);
-              console.log(jobUrl);
+              console.log(datePosted);
+              */
 
-              resolve1();
+              let obj = {
+                title: title,
+                url: url,
+                category: category,
+                advertiser: advertiser,
+
+                description: description,
+                content: content,
+                employmentType: employmentType,
+                addressLocal: addressLocal,
+
+                addressRegion: addressRegion,
+                datePosted: datePosted
+              };
+
+              jobDAO
+                .save(obj)
+                .then(() => {
+                  resolve1();
+                });
+
             })
             .error((err) => {
               console.log('--- single page error:' + singlePage);
@@ -91,7 +121,7 @@ function run() {
               reject1();
             });
 
-        });
+        }).delay(2000);
       })
       .then(() => {
         // ..............
