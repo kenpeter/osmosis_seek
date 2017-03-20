@@ -2,7 +2,11 @@ var osmosis = require('osmosis');
 var Promise = require('bluebird');
 var JobDAO = require('./model/job');
 
-const theList = 'https://www.seek.com.au/php-jobs/in-All-Melbourne-VIC?page=';
+const theListArr = [
+  'https://www.seek.com.au/php-jobs/in-All-Melbourne-VIC?page=',
+  'https://www.seek.com.au/nodejs-jobs/in-All-Melbourne-VIC?page='
+];
+const theList = 'https://www.seek.com.au/nodejs-jobs/in-All-Melbourne-VIC?page=';
 const theListLength = 10;
 
 //var job = new JobDAO();
@@ -107,14 +111,22 @@ function main() {
 
           resolve();
         })
-        .error(console.log);
+        .error((err) => {
+          console.error(err);
+          reject();
+        });
     });
   });
 
 }
 
 
-main().then(() => {
+main()
+.then(() => {
   console.log('--- all done ---');
   process.exit(0);
+})
+.catch(err => {
+  console.error(err);
+  process.exit(1);
 });
