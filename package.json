@@ -4,6 +4,6 @@
     "osmosis": "^1.1.2"
   },
   "scripts": {
-    "start": "node osmosis_seek.js > out.txt"
+    "start": "node osmosis_seek.js"
   }
 }
