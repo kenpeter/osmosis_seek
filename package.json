@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "libxmljs-dom": "^0.0.8",
     "mongoose": "^4.9.0",
+    "needle": "^1.5.2",
     "osmosis": "^1.1.2"
   },
   "scripts": {
