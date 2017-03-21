@@ -144,7 +144,7 @@ function run() {
 
 }
 
-var job = new CronJob('* */1  * * *', () => {
+var job = new CronJob('0 */45 * * * *', () => {
   cleanup()
   .then(() => {
     return run();
