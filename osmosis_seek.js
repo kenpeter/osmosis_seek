@@ -144,7 +144,7 @@ function run() {
 
 }
 
-var job = new CronJob('* 5 * * * *', function() {
+var job = new CronJob('*/10 * * * *', () => {
   cleanup()
   .then(() => {
     return run();
@@ -158,5 +158,9 @@ var job = new CronJob('* 5 * * * *', function() {
     console.error(err);
     process.exit(1);
   });
-
-});
+}, () => {
+  console.log('--- cront done ---');
+},
+  true,
+  'Australia/Melbourne'
+);
