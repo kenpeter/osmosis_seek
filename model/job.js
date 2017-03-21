@@ -12,6 +12,9 @@ var JobSchema = new Schema({
   description: String,
   content: String,
   employmentType: String,
+	addressLocal: String,
+
+	addressRegion: String,
   datePosted: { type: Date, default: Date.now },
 });
 
