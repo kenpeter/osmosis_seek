@@ -1,5 +1,6 @@
 var osmosis = require('osmosis');
 var Promise = require('bluebird');
+var CronJob = require('cron').CronJob;
 var JobDAO = require('./model/job');
 
 const jobDAO = new JobDAO();
@@ -143,17 +144,23 @@ function run() {
 
 }
 
-
-cleanup()
-.then(() => {
-  return run();
-})
-.then(() => {
-  console.log('--- all done ---');
-  process.exit(0);
-})
-.catch(err => {
-  console.log('--- main error ---');
-  console.error(err);
-  process.exit(1);
-});
+var job = new CronJob('*/10 * * * *', () => {
+  cleanup()
+  .then(() => {
+    return run();
+  })
+  .then(() => {
+    console.log('--- all done ---');
+    process.exit(0);
+  })
+  .catch(err => {
+    console.log('--- main error ---');
+    console.error(err);
+    process.exit(1);
+  });
+}, () => {
+  console.log('--- cront done ---');
+},
+  true,
+  'Australia/Melbourne'
+);
