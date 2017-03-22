@@ -15,7 +15,7 @@ var JobSchema = new Schema({
 	addressLocal: String,
 
 	addressRegion: String,
-  datePosted: { type: Date, default: Date.now },
+  datePosted: { type: Date },
 });
 
 var JobDAO = function(){};

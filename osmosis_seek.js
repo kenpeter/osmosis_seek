@@ -79,7 +79,7 @@ function run() {
               let addressLocal = script.jobLocation.address.addressLocality;
 
               let addressRegion = script.jobLocation.address.addressRegion;
-              let datePosted = Date(script.datePosted);
+              let datePosted = new Date(script.datePosted); // have to use new Date, cannot use Date only
 
               console.log();
               console.log('--------' + title + ' -------');
@@ -113,6 +113,7 @@ function run() {
                 datePosted: datePosted
               };
 
+
               jobDAO
                 .save(obj)
                 .then(() => {
@@ -144,7 +145,8 @@ function run() {
 
 }
 
-var job = new CronJob('0 */45 * * * *', () => {
+//var job = new CronJob('0 */10 * * * *', () => {
+var job = new CronJob('0 */55 * * * *', () => {
   cleanup()
   .then(() => {
     return run();
