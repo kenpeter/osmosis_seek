@@ -127,7 +127,7 @@ function run() {
               reject1();
             });
 
-        }).delay(2000);
+        }).delay(8000);
       })
       .then(() => {
         // ..............
@@ -145,8 +145,7 @@ function run() {
 
 }
 
-//var job = new CronJob('0 */10 * * * *', () => {
-var job = new CronJob('0 * 13 * * *', () => {
+// 
   cleanup()
   .then(() => {
     return run();
@@ -160,9 +159,4 @@ var job = new CronJob('0 * 13 * * *', () => {
     console.error(err);
     process.exit(1);
   });
-}, () => {
-  console.log('--- cront done ---');
-},
-  true,
-  'Etc/UTC'
-);
+
